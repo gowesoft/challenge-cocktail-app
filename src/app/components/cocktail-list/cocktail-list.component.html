@@ -1,0 +1,257 @@
+<div class="cocktail-list-container">
+  <!-- Toolbar -->
+  <mat-toolbar color="primary" class="app-toolbar">
+    <span class="app-title">
+      <mat-icon class="title-icon">local_bar</mat-icon>
+      Cocktail App
+    </span>
+    <span class="spacer"></span>
+
+    <!-- Refresh Button -->
+    <button
+      mat-icon-button
+      class="refresh-button"
+      (click)="refreshCocktails()"
+      matTooltip="Refresh cocktails"
+      aria-label="Refresh cocktails"
+    >
+      <mat-icon>refresh</mat-icon>
+    </button>
+
+    <!-- View Toggle Button -->
+    <button
+      mat-icon-button
+      class="view-toggle-button"
+      (click)="toggleViewMode()"
+      [matTooltip]="viewMode() === 'grid' ? 'Switch to table view' : 'Switch to grid view'"
+      aria-label="Toggle view mode"
+    >
+      <mat-icon>{{ viewMode() === 'grid' ? 'view_list' : 'grid_view' }}</mat-icon>
+    </button>
+
+    <!-- Favorites Button -->
+    <button
+      mat-flat-button
+      class="favorites-button"
+      [class.active]="showOnlyFavorites()"
+      (click)="toggleShowFavorites()"
+      matTooltip="{{ showOnlyFavorites() ? 'Show all cocktails' : 'Show only favorites' }}"
+      aria-label="Toggle favorites view"
+    >
+      <mat-icon>{{ showOnlyFavorites() ? 'favorite' : 'favorite_border' }}</mat-icon>
+      <span class="favorites-text">Favorites</span>
+      <span class="favorites-badge" *ngIf="favoritesCount() > 0">{{ favoritesCount() }}</span>
+    </button>
+  </mat-toolbar>
+
+  <!-- Search Bar -->
+  <div class="search-section">
+    <app-search-bar #searchBar (search)="onSearch($event)" (clearSearch)="onClearSearch()" />
+  </div>
+
+  <!-- Skeleton Loader -->
+  <app-cocktail-skeleton
+    *ngIf="isLoading() && displayedCocktails().length === 0 && viewMode() === 'grid'"
+    [count]="6"
+  />
+
+  <!-- Table Skeleton Loader -->
+  <div
+    class="cocktails-table-container"
+    *ngIf="isLoading() && displayedCocktails().length === 0 && viewMode() === 'table'"
+  >
+    <div class="table-skeleton">
+      <div class="table-skeleton-header"></div>
+      <div class="table-skeleton-row" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+        <div class="table-skeleton-cell image-cell"></div>
+        <div class="table-skeleton-cell name-cell"></div>
+        <div class="table-skeleton-cell"></div>
+        <div class="table-skeleton-cell"></div>
+        <div class="table-skeleton-cell"></div>
+        <div class="table-skeleton-cell actions-cell"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading() && displayedCocktails().length === 0">
+    <div class="empty-state-content">
+      <div class="empty-icon-wrapper">
+        <mat-icon class="empty-icon">{{
+          showOnlyFavorites() ? 'favorite_border' : 'local_bar'
+        }}</mat-icon>
+        <div class="empty-icon-decoration"></div>
+      </div>
+      <h2>{{ emptyMessage() }}</h2>
+      <p class="empty-description" *ngIf="showOnlyFavorites()">
+        Click the <mat-icon class="inline-icon">favorite</mat-icon> icon on any cocktail to add it
+        to your favorites
+      </p>
+      <p class="empty-description" *ngIf="currentSearchFilter()">
+        Try adjusting your search terms or clear filters to see more results
+      </p>
+      <div class="empty-actions" *ngIf="showOnlyFavorites()">
+        <button mat-raised-button class="primary-action-button" (click)="toggleShowFavorites()">
+          <mat-icon>explore</mat-icon>
+          Explore Cocktails
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cocktail Grid View -->
+  <div
+    class="cocktails-grid"
+    #cocktailsGrid
+    *ngIf="displayedCocktails().length > 0 && viewMode() === 'grid'"
+  >
+    <app-cocktail-card
+      *ngFor="let cocktail of displayedCocktails(); trackBy: trackByCocktailId; let i = index"
+      [cocktail]="cocktail"
+      [style.animation-delay]="getAnimationDelay(i)"
+      class="cocktail-card-animated"
+      (viewDetails)="viewDetails(cocktail)"
+    />
+  </div>
+
+  <!-- Cocktail Table View -->
+  <div
+    class="cocktails-table-container"
+    #tableContainer
+    *ngIf="displayedCocktails().length > 0 && viewMode() === 'table'"
+  >
+    <table mat-table [dataSource]="displayedCocktails()" class="cocktails-table">
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let cocktail">
+          <img
+            [src]="
+              cocktail.strDrinkThumb
+                ? cocktail.strDrinkThumb + '/small'
+                : 'assets/placeholder-cocktail.jpg'
+            "
+            [alt]="cocktail.strDrink"
+            class="table-cocktail-image"
+          />
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let cocktail" class="name-cell">
+          <span class="cocktail-name-text">{{ cocktail.strDrink }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let cocktail">
+          <span class="badge category-badge">{{ cocktail.strCategory }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Alcoholic Column -->
+      <ng-container matColumnDef="alcoholic">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let cocktail">
+          <span
+            class="badge"
+            [class.alcoholic-badge]="cocktail.strAlcoholic === 'Alcoholic'"
+            [class.non-alcoholic-badge]="cocktail.strAlcoholic !== 'Alcoholic'"
+          >
+            {{ cocktail.strAlcoholic }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Glass Column -->
+      <ng-container matColumnDef="glass">
+        <th mat-header-cell *matHeaderCellDef>Glass</th>
+        <td mat-cell *matCellDef="let cocktail">
+          {{ cocktail.strGlass }}
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let cocktail" class="actions-cell">
+          <button
+            mat-icon-button
+            [color]="isFavorite(cocktail.idDrink) ? 'warn' : 'default'"
+            (click)="toggleFavoriteInTable(cocktail, $event)"
+            [matTooltip]="
+              isFavorite(cocktail.idDrink) ? 'Remove from favorites' : 'Add to favorites'
+            "
+          >
+            <mat-icon>{{ isFavorite(cocktail.idDrink) ? 'favorite' : 'favorite_border' }}</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="viewDetails(cocktail)"
+            matTooltip="View details"
+          >
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="table-row"
+        (click)="viewDetails(row)"
+      ></tr>
+    </table>
+  </div>
+
+  <!-- Load More Skeleton (Grid) -->
+  <div
+    class="load-more-skeleton"
+    *ngIf="isLoading() && displayedCocktails().length > 0 && viewMode() === 'grid'"
+  >
+    <div class="mini-skeleton-grid">
+      <div class="mini-skeleton-card" *ngFor="let item of [1, 2, 3]">
+        <div class="mini-skeleton-image"></div>
+        <div class="mini-skeleton-content">
+          <div class="mini-skeleton-line"></div>
+          <div class="mini-skeleton-line short"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load More Skeleton (Table) -->
+  <div
+    class="cocktails-table-container table-load-more"
+    *ngIf="isLoading() && displayedCocktails().length > 0 && viewMode() === 'table'"
+  >
+    <div class="table-skeleton">
+      <div class="table-skeleton-row" *ngFor="let item of [1, 2, 3]">
+        <div class="table-skeleton-cell image-cell"></div>
+        <div class="table-skeleton-cell name-cell"></div>
+        <div class="table-skeleton-cell"></div>
+        <div class="table-skeleton-cell"></div>
+        <div class="table-skeleton-cell"></div>
+        <div class="table-skeleton-cell actions-cell"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <button
+    mat-fab
+    color="primary"
+    class="scroll-to-top"
+    *ngIf="showScrollToTop()"
+    (click)="scrollToTop()"
+    aria-label="Scroll to top"
+  >
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,151 @@
+<div class="cocktail-detail-container">
+  <!-- Toolbar -->
+  <mat-toolbar color="primary" class="detail-toolbar">
+    <button mat-icon-button (click)="goBack()" aria-label="Go back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <button
+      mat-icon-button
+      [color]="isFavorite() ? 'warn' : 'default'"
+      (click)="toggleFavorite()"
+      [matTooltip]="isFavorite() ? 'Remove from favorites' : 'Add to favorites'"
+      *ngIf="cocktail()"
+    >
+      <mat-icon>{{ isFavorite() ? 'favorite' : 'favorite_border' }}</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Content wrapper for smooth transitions -->
+  <div class="detail-content-wrapper">
+    <!-- Loading State -->
+    <div class="detail-skeleton" [class.fade-out]="!isLoading()">
+      <div class="skeleton-detail-card">
+        <div class="skeleton-detail-image"></div>
+        <div class="skeleton-detail-content">
+          <div class="skeleton-detail-title"></div>
+          <div class="skeleton-detail-tags">
+            <div class="skeleton-tag"></div>
+            <div class="skeleton-tag"></div>
+          </div>
+          <div class="skeleton-section">
+            <div class="skeleton-section-title"></div>
+            <div class="skeleton-ingredient"></div>
+            <div class="skeleton-ingredient"></div>
+            <div class="skeleton-ingredient"></div>
+          </div>
+          <div class="skeleton-section">
+            <div class="skeleton-section-title"></div>
+            <div class="skeleton-text-block"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" *ngIf="error()">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h2>Cocktail not found</h2>
+      <p>{{ error() }}</p>
+      <button mat-raised-button color="primary" (click)="goBack()">Go Back</button>
+    </div>
+
+    <!-- Cocktail Details -->
+    <div class="detail-content" *ngIf="cocktail()" [class.visible]="contentReady()">
+      <div class="detail-card">
+        <!-- Image Section -->
+        <div class="image-section">
+          <img
+            [src]="cocktail()!.strDrinkThumb || 'assets/placeholder-cocktail.jpg'"
+            [alt]="cocktail()!.strDrink"
+            (load)="onImageLoad($event)"
+            class="cocktail-image"
+            [class.loaded]="imageLoaded()"
+          />
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+          <h1 class="cocktail-name">{{ cocktail()!.strDrink }}</h1>
+
+          <!-- Tags -->
+          <div class="tags-section">
+            <mat-chip-set aria-label="Cocktail properties">
+              <mat-chip *ngIf="cocktail()!.strCategory">
+                <mat-icon matChipAvatar>category</mat-icon>
+                {{ cocktail()!.strCategory }}
+              </mat-chip>
+              <mat-chip *ngIf="cocktail()!.strAlcoholic">
+                <mat-icon matChipAvatar>local_bar</mat-icon>
+                {{ cocktail()!.strAlcoholic }}
+              </mat-chip>
+              <mat-chip *ngIf="cocktail()!.strGlass">
+                <mat-icon matChipAvatar>wine_bar</mat-icon>
+                {{ cocktail()!.strGlass }}
+              </mat-chip>
+              <mat-chip *ngIf="cocktail()!.strIBA">
+                <mat-icon matChipAvatar>verified</mat-icon>
+                {{ cocktail()!.strIBA }}
+              </mat-chip>
+            </mat-chip-set>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Ingredients -->
+          <div class="section">
+            <h2 class="section-title">
+              <mat-icon>restaurant</mat-icon>
+              Ingredients
+            </h2>
+            <mat-list class="ingredients-list">
+              <mat-list-item *ngFor="let ingredient of ingredients(); let i = index">
+                <span matListItemTitle>{{ ingredient.name }}</span>
+                <span matListItemLine *ngIf="ingredient.measure">{{ ingredient.measure }}</span>
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Instructions -->
+          <div class="section">
+            <h2 class="section-title">
+              <mat-icon>description</mat-icon>
+              Instructions
+            </h2>
+            <p class="instructions">{{ instructions() }}</p>
+          </div>
+
+          <!-- Additional Info -->
+          <div class="additional-info" *ngIf="cocktail()!.strTags">
+            <mat-divider></mat-divider>
+            <div class="section">
+              <h3 class="section-subtitle">Tags</h3>
+              <div class="tags-container">
+                <mat-chip-set aria-label="Cocktail tags">
+                  <mat-chip *ngFor="let tag of tags()">
+                    {{ tag }}
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button mat-raised-button color="primary" (click)="toggleFavorite()">
+              <mat-icon>{{ isFavorite() ? 'favorite' : 'favorite_border' }}</mat-icon>
+              {{ isFavorite() ? 'Remove from Favorites' : 'Add to Favorites' }}
+            </button>
+            <button mat-stroked-button (click)="goBack()">
+              <mat-icon>arrow_back</mat-icon>
+              Back to List
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Close detail-content-wrapper -->
+</div>
