@@ -24,13 +24,13 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
-import { CocktailCardComponent } from '../cocktail-card/cocktail-card.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { CocktailSkeletonComponent } from '../../shared/components';
-import { Cocktail, SearchFilter } from '../../models/cocktail.model';
-import { CocktailApiService } from '../../services/cocktail-api.service';
-import { FavoritesService } from '../../services/favorites.service';
-import { StateService } from '../../services/state.service';
+import { CocktailCardComponent } from '@app/components/cocktail-card/cocktail-card.component';
+import { SearchBarComponent } from '@app/components/search-bar/search-bar.component';
+import { CocktailSkeletonComponent } from '@app/shared/components';
+import { Cocktail, SearchFilter } from '@app/models/cocktail.model';
+import { CocktailApiService } from '@app/services/cocktail-api.service';
+import { FavoritesService } from '@app/services/favorites.service';
+import { StateService } from '@app/services/state.service';
 
 @Component({
   selector: 'app-cocktail-list',

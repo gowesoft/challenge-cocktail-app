@@ -1,6 +1,8 @@
+@use 'styles/tokens' as tokens;
+
 .cocktail-list-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: tokens.$gradient-app;
   position: relative;
 
   // Remove blue outline on button clicks
@@ -28,8 +30,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 50%,
+      rgba(tokens.$color-primary, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(circle at 80% 80%, rgba(tokens.$color-secondary, 0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -37,8 +43,8 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  box-shadow: 0 4px 20px tokens.$color-shadow-elevated;
+  background: tokens.$gradient-toolbar;
   backdrop-filter: blur(10px);
 }
 
@@ -70,7 +76,7 @@
   padding: 0.625rem 1.25rem;
   height: 44px;
   background: rgba(255, 255, 255, 0.15);
-  color: white;
+  color: tokens.$color-text-inverse;
   border-radius: 24px;
   font-weight: 600;
   font-size: 0.9375rem;
@@ -78,7 +84,7 @@
   border: 2px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px tokens.$color-shadow-muted;
 }
 
 .favorites-button:hover {
@@ -89,16 +95,16 @@
 }
 
 .favorites-button.active {
-  background: white;
-  color: #ec4899;
-  border-color: white;
-  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
+  background: tokens.$color-text-inverse;
+  color: tokens.$color-secondary;
+  border-color: tokens.$color-text-inverse;
+  box-shadow: 0 4px 20px rgba(tokens.$color-secondary, 0.4);
 }
 
 .favorites-button.active:hover {
-  background: #fef2f2;
+  background: tokens.$color-surface-rose;
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 24px rgba(236, 72, 153, 0.5);
+  box-shadow: 0 6px 24px rgba(tokens.$color-secondary, 0.5);
 }
 
 .favorites-button mat-icon {
@@ -120,19 +126,19 @@
   min-width: 24px;
   height: 24px;
   padding: 0 0.5rem;
-  background: #ec4899;
-  color: white;
+  background: tokens.$color-secondary;
+  color: tokens.$color-text-inverse;
   border-radius: 12px;
   font-size: 0.8125rem;
   font-weight: 700;
   margin-left: 0.25rem;
-  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.4);
+  box-shadow: 0 2px 8px rgba(tokens.$color-secondary, 0.4);
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .favorites-button.active .favorites-badge {
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+  background: tokens.$gradient-accent-button;
+  box-shadow: 0 2px 8px tokens.$color-shadow-strong;
 }
 
 @keyframes pulse {
@@ -256,11 +262,11 @@
   font-size: 6rem;
   width: 6rem;
   height: 6rem;
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  background: tokens.$gradient-accent-button;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 12px rgba(124, 58, 237, 0.3));
+  filter: drop-shadow(0 4px 12px rgba(tokens.$color-primary, 0.3));
   animation: float 3s ease-in-out infinite;
   position: relative;
   z-index: 2;
@@ -283,7 +289,7 @@
   transform: translate(-50%, -50%);
   width: 120px;
   height: 120px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(tokens.$color-primary, 0.1) 0%, transparent 70%);
   border-radius: 50%;
   animation: pulse-glow 2s ease-in-out infinite;
   z-index: 1;
@@ -302,19 +308,19 @@
 }
 
 .empty-state h2 {
-  color: #1e293b;
+  color: tokens.$color-text-primary;
   margin-bottom: 1rem;
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  background: tokens.$gradient-heading;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .empty-description {
-  color: #64748b;
+  color: tokens.$color-text-muted;
   font-size: 1.125rem;
   line-height: 1.6;
   margin: 1rem 0;
@@ -329,7 +335,7 @@
   font-size: 1.25rem;
   width: 20px;
   height: 20px;
-  color: #ec4899;
+  color: tokens.$color-secondary;
   vertical-align: middle;
   animation: heartbeat 1.5s ease-in-out infinite;
 }
@@ -363,20 +369,20 @@
   gap: 0.5rem;
   padding: 0.875rem 2rem;
   height: 52px;
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-  color: white;
+  background: tokens.$gradient-accent-button;
+  color: tokens.$color-text-inverse;
   font-weight: 600;
   font-size: 1rem;
   letter-spacing: 0.02em;
   border-radius: 26px;
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 24px tokens.$color-shadow-strong;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
 }
 
 .primary-action-button:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 12px 32px rgba(tokens.$color-primary, 0.5);
 }
 
 .primary-action-button mat-icon {
@@ -424,16 +430,16 @@
 }
 
 .mini-skeleton-card {
-  background: white;
+  background: tokens.$color-surface;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px tokens.$color-shadow-muted;
 }
 
 .mini-skeleton-image {
   width: 100%;
   height: 200px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -449,7 +455,7 @@
   height: 16px;
   width: 70%;
   border-radius: 6px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 
@@ -473,8 +479,8 @@
   bottom: 2rem;
   right: 2rem;
   z-index: 999;
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+  background: tokens.$gradient-accent-button;
+  box-shadow: 0 8px 24px tokens.$color-shadow-strong;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -639,7 +645,7 @@
 
   .mat-mdc-header-cell {
     background: transparent !important;
-    color: #1f2937 !important;
+    color: tokens.$color-text-primary !important;
     font-weight: 700 !important;
     font-size: 0.9375rem !important;
     letter-spacing: 0.03em;
@@ -658,8 +664,8 @@
       border-radius: 999px;
       background: linear-gradient(
         90deg,
-        rgba(124, 58, 237, 0.35) 0%,
-        rgba(236, 72, 153, 0.45) 100%
+        rgba(tokens.$color-primary, 0.35) 0%,
+        rgba(tokens.$color-secondary, 0.45) 100%
       );
       opacity: 0;
       transition: opacity 0.2s ease;
@@ -672,9 +678,9 @@
 
   .mat-mdc-cell {
     padding: 1rem !important;
-    border-bottom: 1px solid #f1f5f9 !important;
+    border-bottom: 1px solid tokens.$color-border-strong !important;
     font-size: 0.9375rem;
-    color: #475569;
+    color: tokens.$color-text-secondary;
   }
 
   .mat-mdc-row {
@@ -684,8 +690,8 @@
     &:hover {
       background: linear-gradient(
         135deg,
-        rgba(124, 58, 237, 0.05) 0%,
-        rgba(236, 72, 153, 0.05) 100%
+        rgba(tokens.$color-primary, 0.05) 0%,
+        rgba(tokens.$color-secondary, 0.05) 100%
       ) !important;
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -727,7 +733,7 @@
 }
 
 .cocktail-name-text {
-  color: #1e293b;
+  color: tokens.$color-text-primary;
   font-weight: 700;
 }
 
@@ -741,21 +747,21 @@
 }
 
 .category-badge {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  color: #0284c7;
-  border: 1px solid #bae6fd;
+  background: tokens.$gradient-category-badge;
+  color: tokens.$color-category-text;
+  border: 1px solid tokens.$color-category-border;
 }
 
 .alcoholic-badge {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  color: #d97706;
-  border: 1px solid #fcd34d;
+  background: tokens.$gradient-alcoholic-badge;
+  color: tokens.$color-alcoholic-text;
+  border: 1px solid tokens.$color-alcoholic-border;
 }
 
 .non-alcoholic-badge {
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-  color: #16a34a;
-  border: 1px solid #86efac;
+  background: tokens.$gradient-nonalcoholic-badge;
+  color: tokens.$color-nonalcoholic-text;
+  border: 1px solid tokens.$color-nonalcoholic-border;
 }
 
 .actions-cell {
@@ -889,7 +895,7 @@
   grid-template-columns: 80px 1fr 150px 120px 150px 120px;
   gap: 1rem;
   padding: 1rem;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid tokens.$color-border-strong;
   animation: fadeIn 0.5s ease-in-out;
 
   &:nth-child(odd) {
@@ -900,7 +906,7 @@
 .table-skeleton-cell {
   height: 20px;
   border-radius: 6px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 
@@ -922,12 +928,12 @@
 }
 
 .table-load-more {
-  margin-top: -2px; // Solapamiento para eliminar completamente el gap
-  margin-bottom: 2rem; // Mantener margen inferior
+  margin-top: -2px;
+  margin-bottom: 2rem;
   border-radius: 0 0 16px 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   padding-top: 0;
-  background: white;
+  background: tokens.$color-surface;
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
@@ -935,19 +941,19 @@
 
 .table-load-more .table-skeleton {
   padding-top: 0;
-  background: white;
+  background: tokens.$color-surface;
   border-radius: 0 0 16px 16px;
 }
 
 .table-load-more .table-skeleton-row {
   &:first-child {
-    border-top: 1px solid #f1f5f9; // Línea sutil de separación
+    border-top: 1px solid tokens.$color-border-strong;
     padding-top: 1rem;
     animation: slideInFromBottom 0.3s ease-out;
   }
 
   &:last-child {
-    border-bottom: none; // Sin borde en el último elemento
+    border-bottom: none;
   }
 }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Cocktail, CocktailApiResponse } from '../models/cocktail.model';
+import { Cocktail, CocktailApiResponse } from '@app/models/cocktail.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,10 @@ export class CocktailApiService {
       .get<CocktailApiResponse>(`${this.API_BASE_URL}/search.php?s=${encodeURIComponent(name)}`)
       .pipe(
         map((response) => response.drinks || []),
-        catchError(() => of([]))
+        catchError((error) => {
+          console.error('[CocktailApiService] searchByName failed', { name, error });
+          return of([]);
+        })
       );
   }
 
@@ -42,7 +45,10 @@ export class CocktailApiService {
       )
       .pipe(
         map((response) => response.drinks || []),
-        catchError(() => of([]))
+        catchError((error) => {
+          console.error('[CocktailApiService] searchByIngredient failed', { ingredient, error });
+          return of([]);
+        })
       );
   }
 
@@ -58,7 +64,10 @@ export class CocktailApiService {
       .get<CocktailApiResponse>(`${this.API_BASE_URL}/lookup.php?i=${encodeURIComponent(id)}`)
       .pipe(
         map((response) => (response.drinks ? response.drinks[0] : null)),
-        catchError(() => of(null))
+        catchError((error) => {
+          console.error('[CocktailApiService] searchById failed', { id, error });
+          return of(null);
+        })
       );
   }
 
@@ -79,7 +88,10 @@ export class CocktailApiService {
       requests.push(
         this.http.get<CocktailApiResponse>(`${this.API_BASE_URL}/random.php`).pipe(
           map((response) => (response.drinks ? response.drinks[0] : null)),
-          catchError(() => of(null))
+          catchError((error) => {
+            console.error('[CocktailApiService] getRandomCocktails request failed', error);
+            return of(null);
+          })
         )
       );
     }

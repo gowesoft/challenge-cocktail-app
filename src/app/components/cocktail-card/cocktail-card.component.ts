@@ -16,8 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Cocktail } from '../../models/cocktail.model';
-import { FavoritesService } from '../../services/favorites.service';
+import { Cocktail } from '@app/models/cocktail.model';
+import { FavoritesService } from '@app/services/favorites.service';
 
 @Component({
   selector: 'app-cocktail-card',

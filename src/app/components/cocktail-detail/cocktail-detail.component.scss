@@ -1,10 +1,10 @@
+@use 'styles/tokens' as tokens;
+
 .cocktail-detail-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: tokens.$gradient-app;
   position: relative;
-  // Remove animation from container - it will be controlled per element
 
-  // Remove blue outline on button clicks
   button,
   .mat-mdc-button,
   .mat-mdc-icon-button,
@@ -16,7 +16,7 @@
 
     // Keep focus visible for keyboard navigation (accessibility)
     &:focus-visible {
-      outline: 2px solid rgba(124, 58, 237, 0.5);
+      outline: 2px solid rgba(tokens.$color-primary, 0.5);
       outline-offset: 2px;
     }
   }
@@ -38,8 +38,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 50%,
+      rgba(tokens.$color-primary, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(circle at 80% 80%, rgba(tokens.$color-secondary, 0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -47,13 +51,13 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  box-shadow: 0 4px 20px tokens.$color-shadow-elevated;
+  background: tokens.$gradient-toolbar;
   backdrop-filter: blur(10px);
 }
 
 .detail-toolbar button {
-  color: white;
+  color: tokens.$color-text-inverse;
 }
 
 .spacer {
@@ -107,16 +111,17 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  background: white;
+  background: tokens.$color-surface;
   border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 60px tokens.$color-shadow-muted;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .skeleton-detail-image {
   width: 100%;
   min-height: 440px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -132,7 +137,7 @@
   height: 48px;
   width: 80%;
   border-radius: 12px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -146,7 +151,7 @@
   height: 32px;
   width: 100px;
   border-radius: 16px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   animation-delay: 0.1s;
@@ -162,7 +167,7 @@
   height: 28px;
   width: 150px;
   border-radius: 8px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   animation-delay: 0.2s;
@@ -172,7 +177,7 @@
   height: 44px;
   width: 100%;
   border-radius: 12px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   animation-delay: 0.3s;
@@ -182,7 +187,7 @@
   height: 100px;
   width: 100%;
   border-radius: 12px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   animation-delay: 0.4s;
@@ -248,7 +253,11 @@
 .image-section {
   position: relative;
   min-height: 420px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: linear-gradient(
+    135deg,
+    tokens.$color-surface-alt 0%,
+    tokens.$color-surface-muted 100%
+  );
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -264,7 +273,7 @@
   display: block;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 10px 30px tokens.$color-shadow-elevated);
 }
 
 .cocktail-image.loaded {
@@ -276,17 +285,17 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: white;
+  background: tokens.$color-surface;
 }
 
 .cocktail-name {
   font-size: 2.5rem;
   font-weight: 800;
   margin: 0;
-  color: #1e293b;
+  color: tokens.$color-text-primary;
   line-height: 1.2;
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  background: tokens.$gradient-accent-button;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -298,14 +307,18 @@
 
 .tags-section mat-chip {
   font-weight: 600;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 1px solid #e2e8f0;
+  background: linear-gradient(
+    135deg,
+    tokens.$color-surface-alt 0%,
+    tokens.$color-surface-muted 100%
+  );
+  border: 1px solid tokens.$color-border;
   transition: all 0.2s ease;
 }
 
 .tags-section mat-chip:hover {
   transform: scale(1.05);
-  border-color: #7c3aed;
+  border-color: tokens.$color-primary;
 }
 
 .section {
@@ -318,13 +331,13 @@
   gap: 0.75rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1e293b;
+  color: tokens.$color-text-primary;
   margin: 0 0 1rem 0;
   letter-spacing: -0.02em;
 }
 
 .section-title mat-icon {
-  color: #7c3aed;
+  color: tokens.$color-primary;
   font-size: 2rem;
   width: 32px;
   height: 32px;
@@ -333,20 +346,24 @@
 .section-subtitle {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1e293b;
+  color: tokens.$color-text-primary;
   margin: 0 0 0.75rem 0;
   letter-spacing: -0.02em;
 }
 
 .ingredients-list {
   padding: 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: linear-gradient(
+    135deg,
+    tokens.$color-surface-alt 0%,
+    tokens.$color-surface-muted 100%
+  );
   border-radius: 16px;
   overflow: hidden;
 }
 
 .ingredients-list mat-list-item {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid tokens.$color-border;
   transition: background 0.2s ease;
 }
 
@@ -355,19 +372,23 @@
 }
 
 .ingredients-list mat-list-item:hover {
-  background: rgba(124, 58, 237, 0.05);
+  background: rgba(tokens.$color-primary, 0.05);
 }
 
 .instructions {
   font-size: 1.05rem;
   line-height: 1.6;
-  color: #475569;
+  color: tokens.$color-text-secondary;
   margin: 0;
   white-space: pre-wrap;
   padding: 1.25rem;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: linear-gradient(
+    135deg,
+    tokens.$color-surface-alt 0%,
+    tokens.$color-surface-muted 100%
+  );
   border-radius: 16px;
-  border-left: 4px solid #7c3aed;
+  border-left: 4px solid tokens.$color-primary;
 }
 
 .tags-container {
@@ -392,24 +413,28 @@
 }
 
 .action-buttons button[color='primary'] {
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+  background: tokens.$gradient-primary-button;
+  box-shadow: 0 4px 15px tokens.$color-shadow-soft;
 }
 
 .action-buttons button[color='primary']:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 25px tokens.$color-shadow-strong;
 }
 
 .action-buttons button:not([color='primary']) {
-  border: 2px solid #e2e8f0;
-  background: white;
-  color: #1e293b;
+  border: 2px solid tokens.$color-border;
+  background: tokens.$color-surface;
+  color: tokens.$color-text-primary;
 }
 
 .action-buttons button:not([color='primary']):hover {
-  border-color: #7c3aed;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-color: tokens.$color-primary;
+  background: linear-gradient(
+    135deg,
+    tokens.$color-surface-alt 0%,
+    tokens.$color-surface-muted 100%
+  );
   transform: translateY(-2px);
 }
 

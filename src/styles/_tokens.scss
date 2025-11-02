@@ -1,0 +1,97 @@
+$color-primary: #7c3aed;
+$color-primary-light: #a855f7;
+$color-primary-soft: #c4b5fd;
+
+$color-secondary: #ec4899;
+$color-secondary-light: #f093fb;
+$color-secondary-soft: #f472b6;
+
+$color-disabled-start: #cbd5e1;
+$color-disabled-end: #94a3b8;
+
+$color-background-gradient-start: #667eea;
+$color-background-gradient-middle: #764ba2;
+$color-background-gradient-end: #f093fb;
+
+$color-surface: #ffffff;
+$color-surface-alt: #f8fafc;
+$color-surface-muted: #f1f5f9;
+$color-surface-rose: #fdf2f8;
+
+$color-border: #e2e8f0;
+$color-border-strong: #f1f5f9;
+
+$color-text-primary: #1e293b;
+$color-text-secondary: #475569;
+$color-text-muted: #64748b;
+$color-text-inverse: #ffffff;
+
+$color-category-bg: #f0f9ff;
+$color-category-border: #bae6fd;
+$color-category-text: #0284c7;
+$color-category-highlight: #e0f2fe;
+
+$color-alcoholic-bg: #fef3c7;
+$color-alcoholic-border: #fcd34d;
+$color-alcoholic-text: #d97706;
+$color-alcoholic-highlight: #fde68a;
+
+$color-nonalcoholic-bg: #dcfce7;
+$color-nonalcoholic-border: #86efac;
+$color-nonalcoholic-text: #16a34a;
+$color-nonalcoholic-highlight: #bbf7d0;
+
+$color-skeleton-base: #f0f0f0;
+$color-skeleton-highlight: #e0e0e0;
+
+$color-shadow-strong: rgba(124, 58, 237, 0.4);
+$color-shadow-soft: rgba(236, 72, 153, 0.3);
+$color-shadow-muted: rgba(0, 0, 0, 0.15);
+$color-shadow-elevated: rgba(0, 0, 0, 0.1);
+
+$color-overlay-light: rgba(255, 255, 255, 0.1);
+$color-overlay-soft: rgba(255, 255, 255, 0.15);
+
+$gradient-app: linear-gradient(
+  135deg,
+  $color-background-gradient-start 0%,
+  $color-background-gradient-middle 50%,
+  $color-background-gradient-end 100%
+);
+
+$gradient-toolbar: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
+$gradient-primary-button: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+$gradient-accent-button: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
+$gradient-secondary-button: linear-gradient(
+  135deg,
+  $color-secondary 0%,
+  $color-secondary-soft 100%
+);
+$gradient-disabled-button: linear-gradient(
+  135deg,
+  $color-disabled-start 0%,
+  $color-disabled-end 100%
+);
+$gradient-heading: linear-gradient(135deg, $color-text-primary 0%, $color-text-secondary 100%);
+$gradient-category-badge: linear-gradient(
+  135deg,
+  $color-category-bg 0%,
+  $color-category-highlight 100%
+);
+$gradient-alcoholic-badge: linear-gradient(
+  135deg,
+  $color-alcoholic-bg 0%,
+  $color-alcoholic-highlight 100%
+);
+$gradient-nonalcoholic-badge: linear-gradient(
+  135deg,
+  $color-nonalcoholic-bg 0%,
+  $color-nonalcoholic-highlight 100%
+);
+$gradient-skeleton: linear-gradient(
+  90deg,
+  $color-skeleton-base 0%,
+  $color-skeleton-highlight 20%,
+  $color-skeleton-base 40%,
+  $color-skeleton-base 100%
+);

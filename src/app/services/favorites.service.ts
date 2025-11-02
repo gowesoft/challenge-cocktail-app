@@ -1,5 +1,4 @@
 import { Injectable, signal, computed, effect } from '@angular/core';
-import { Cocktail } from '../models/cocktail.model';
 
 @Injectable({
   providedIn: 'root',
@@ -97,7 +96,7 @@ export class FavoritesService {
         }
       }
     } catch (error) {
-      // Handle potential JSON parsing errors silently
+      console.error('[FavoritesService] Failed to load favorites from storage', error);
     }
   }
 
@@ -108,7 +107,7 @@ export class FavoritesService {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(favorites));
     } catch (error) {
-      // Handle potential storage errors silently
+      console.error('[FavoritesService] Failed to save favorites to storage', error);
     }
   }
 
@@ -131,7 +130,7 @@ export class FavoritesService {
             this.isInitializing = wasInitializing;
           }
         } catch (error) {
-          // Handle potential parsing errors silently
+          console.error('[FavoritesService] Failed to sync favorites from storage event', error);
         }
       }
     });

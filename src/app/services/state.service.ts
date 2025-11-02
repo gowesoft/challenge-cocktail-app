@@ -1,5 +1,5 @@
 import { Injectable, signal, effect } from '@angular/core';
-import { AppState, SearchFilter, Cocktail } from '../models/cocktail.model';
+import { AppState, SearchFilter, Cocktail } from '@app/models/cocktail.model';
 
 @Injectable({
   providedIn: 'root',

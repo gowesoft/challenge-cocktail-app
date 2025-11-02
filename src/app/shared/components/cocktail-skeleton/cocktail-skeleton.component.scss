@@ -1,3 +1,5 @@
+@use 'styles/tokens' as tokens;
+
 .skeleton-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -8,10 +10,10 @@
 }
 
 .skeleton-card {
-  background: white;
+  background: tokens.$color-surface;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px tokens.$color-shadow-muted;
   animation: fadeIn 0.5s ease-in-out forwards;
   opacity: 0;
 }
@@ -25,7 +27,7 @@
 .skeleton-image {
   width: 100%;
   height: 280px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -41,7 +43,7 @@
   height: 24px;
   width: 70%;
   border-radius: 8px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -50,7 +52,7 @@
   height: 18px;
   width: 50%;
   border-radius: 6px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   animation-delay: 0.1s;
@@ -60,7 +62,7 @@
   height: 14px;
   width: 90%;
   border-radius: 4px;
-  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 20%, #f0f0f0 40%, #f0f0f0 100%);
+  background: tokens.$gradient-skeleton;
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   animation-delay: 0.2s;

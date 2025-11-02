@@ -7,8 +7,8 @@ import { provideRouter, withInMemoryScrolling, RouteReuseStrategy } from '@angul
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { routes } from './app.routes';
-import { CustomRouteReuseStrategy } from './route-reuse-strategy';
+import { routes } from '@app/app.routes';
+import { CustomRouteReuseStrategy } from '@app/route-reuse-strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { SearchFilter, SearchType } from '../../models/cocktail.model';
+import { SearchFilter, SearchType } from '@app/models/cocktail.model';
 
 @Component({
   selector: 'app-search-bar',

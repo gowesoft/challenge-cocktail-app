@@ -12,10 +12,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Cocktail, Ingredient } from '../../models/cocktail.model';
-import { CocktailApiService } from '../../services/cocktail-api.service';
-import { FavoritesService } from '../../services/favorites.service';
-import { CocktailUtils } from '../../utils/cocktail.utils';
+import { Cocktail, Ingredient } from '@app/models/cocktail.model';
+import { CocktailApiService } from '@app/services/cocktail-api.service';
+import { FavoritesService } from '@app/services/favorites.service';
+import { CocktailUtils } from '@app/utils/cocktail.utils';
 
 @Component({
   selector: 'app-cocktail-detail',

@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CocktailDetailComponent } from './cocktail-detail.component';
-import { CocktailApiService } from '../../services/cocktail-api.service';
-import { FavoritesService } from '../../services/favorites.service';
+import { CocktailApiService } from '@app/services/cocktail-api.service';
+import { FavoritesService } from '@app/services/favorites.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { of, throwError } from 'rxjs';
@@ -10,7 +10,7 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Cocktail } from '../../models/cocktail.model';
+import { Cocktail } from '@app/models/cocktail.model';
 
 describe('CocktailDetailComponent', () => {
   let component: CocktailDetailComponent;

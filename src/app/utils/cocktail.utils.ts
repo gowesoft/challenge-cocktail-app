@@ -1,4 +1,4 @@
-import { Cocktail, Ingredient } from '../models/cocktail.model';
+import { Cocktail, Ingredient } from '@app/models/cocktail.model';
 
 /**
  * Utility class for cocktail-related operations
